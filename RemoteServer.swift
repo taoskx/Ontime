@@ -286,6 +286,12 @@ button.blue{background:#0a84ff}
 <input id="mins" type="number" inputmode="numeric" placeholder="自定义分钟数">
 <button id="go" class="blue" style="flex:0 0 110px">开始</button>
 </div>
+<div class="sec">PPT 翻页（手机当翻页笔）</div>
+<div class="row">
+<button id="prev" style="padding:24px 0;font-size:22px">◀ 上一页</button>
+<button id="next" style="padding:24px 0;font-size:22px">下一页 ▶</button>
+</div>
+<div class="sub" style="margin-top:2px">首次使用需在 Mac"系统设置→隐私与安全性→辅助功能"中允许 OnTime</div>
 <div id="err">连接断开：请确认手机与电脑在同一 WiFi</div>
 <script>
 var T=new URLSearchParams(location.search).get('t')||'';
@@ -312,6 +318,8 @@ b.onclick=async function(){try{await call('/api/cmd',{action:'set',seconds:parse
 document.getElementById('go').onclick=async function(){
 var m=parseInt(document.getElementById('mins').value,10);
 if(m>0){try{await call('/api/cmd',{action:'set',seconds:m*60});refresh();}catch(e){}}};
+document.getElementById('prev').onclick=async function(){try{await call('/api/cmd',{action:'prev'});}catch(e){}};
+document.getElementById('next').onclick=async function(){try{await call('/api/cmd',{action:'next'});}catch(e){}};
 setInterval(refresh,1000);refresh();
 </script>
 </body>

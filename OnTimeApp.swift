@@ -2,6 +2,7 @@ import SwiftUI
 import AppKit
 import Carbon
 import Combine
+import ApplicationServices  // 翻页用的 AXIsProcessTrusted（辅助功能权限检测）
 
 @main
 struct OnTimeApp: App {
@@ -189,10 +190,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 openCountdownRemote(seconds: s)
                 return ["ok": true]
             }
+        case "prev":
+            remotePage(forward: false)
+            return ["ok": true]
+        case "next":
+            remotePage(forward: true)
+            return ["ok": true]
         default:
             break
         }
         return ["ok": false]
+    }
+
+    /// 手机遥控翻页：模拟 ←/→ 方向键，PowerPoint/Keynote/WPS/浏览器幻灯片通用。
+    /// 按键走前台应用——演讲时幻灯片在前台，咱们的面板不抢焦点，正好。
+    /// 需要"辅助功能"权限：没给过就弹系统授权框，用户去"系统设置→隐私与安全性→辅助功能"勾选一次即可。
+    /// 注意 ad-hoc 签名每次构建 cdhash 都变，每次更新版本后需重新勾选一次。
+    func remotePage(forward: Bool) {
+        if !AXIsProcessTrusted() {
+            let opts = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+            AXIsProcessTrustedWithOptions(opts)
+            return
+        }
+        let key: CGKeyCode = forward ? 0x7C : 0x7B  // → / ←
+        guard let src = CGEventSource(stateID: .hidSystemState) else { return }
+        CGEvent(keyboardEventSource: src, virtualKey: key, keyDown: true)?.post(tap: .cghidEventTap)
+        CGEvent(keyboardEventSource: src, virtualKey: key, keyDown: false)?.post(tap: .cghidEventTap)
     }
 
     /// 远程开倒计时：不碰设置窗口（远程时设置窗可能最小化着）
