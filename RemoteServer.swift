@@ -245,10 +245,10 @@ let remoteHTML = #"""
 <title>On Time 7 遥控</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#141414;color:#fff;padding:20px 16px 48px}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#141414;color:#fff;padding:12px 16px 48px}
 h1{font-size:18px;text-align:center;margin:0 0 4px}
 .sub{text-align:center;color:#888;font-size:12px;margin-bottom:14px}
-#time{font-size:76px;font-weight:700;text-align:center;margin:6px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:2px}
+#time{font-size:76px;font-weight:700;text-align:center;margin:2px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:2px}
 #state{text-align:center;color:#aaa;font-size:14px;min-height:22px;margin-bottom:14px}
 .row{display:flex;gap:10px;margin-bottom:12px}
 button{flex:1;border:none;border-radius:12px;padding:16px 0;font-size:17px;font-weight:600;color:#fff;background:#2c2c2e}
@@ -286,10 +286,10 @@ button.blue{background:#0a84ff}
 <input id="mins" type="number" inputmode="numeric" placeholder="自定义分钟数">
 <button id="go" class="blue" style="flex:0 0 110px">开始</button>
 </div>
-<div class="sec">PPT 翻页（手机当翻页笔）</div>
+<div class="sec" style="margin-top:38px">PPT 翻页（手机当翻页笔）</div>
 <div class="row">
-<button id="prev" style="padding:24px 0;font-size:22px">◀ 上一页</button>
-<button id="next" style="padding:24px 0;font-size:22px">下一页 ▶</button>
+<button id="prev" style="padding:28px 0;font-size:24px">◀ 上一页</button>
+<button id="next" style="padding:28px 0;font-size:24px">下一页 ▶</button>
 </div>
 <div class="sub" style="margin-top:2px">首次使用需在 Mac"系统设置→隐私与安全性→辅助功能"中允许 OnTime</div>
 <div id="err">连接断开：请确认手机与电脑在同一 WiFi</div>
