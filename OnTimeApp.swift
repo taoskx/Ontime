@@ -233,23 +233,35 @@ struct WindowHandle: NSViewRepresentable {
 }
 
 /// 按住拖动搬窗口；轻点（位移 < 3pt）不触发拖动，原有的 onTapGesture 照常工作
+/// 注意：位移必须用屏幕坐标（NSEvent.mouseLocation）算增量——
+/// 若用视图本地坐标的 translation，窗口一动、视图跟着动，位移会被吃回去，
+/// 导致窗口来回抽动（不跟手 + 闪烁）
 struct WindowDragMove: ViewModifier {
     @State private var win: NSWindow?
-    @State private var anchor: NSPoint?
+    @State private var startMouse: NSPoint?
+    @State private var startOrigin: NSPoint?
 
     func body(content: Content) -> some View {
         content
             .background(WindowHandle { win = $0 })
             .gesture(
                 DragGesture(minimumDistance: 3)
-                    .onChanged { v in
+                    .onChanged { _ in
                         guard let w = win else { return }
-                        if anchor == nil { anchor = w.frame.origin }
-                        // 手势位移是左上原点、y 向下；窗口 frame 是左下原点、y 向上
-                        w.setFrameOrigin(NSPoint(x: anchor!.x + v.translation.width,
-                                                 y: anchor!.y - v.translation.height))
+                        // 屏幕坐标系（y 向上）与 window.frame 同系，增量直接套用，不用翻转
+                        let cur = NSEvent.mouseLocation
+                        if startMouse == nil {
+                            startMouse = cur
+                            startOrigin = w.frame.origin
+                        }
+                        w.setFrameOrigin(NSPoint(
+                            x: startOrigin!.x + cur.x - startMouse!.x,
+                            y: startOrigin!.y + cur.y - startMouse!.y))
                     }
-                    .onEnded { _ in anchor = nil }
+                    .onEnded { _ in
+                        startMouse = nil
+                        startOrigin = nil
+                    }
             )
     }
 }
