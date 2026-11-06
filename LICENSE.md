@@ -1,10 +1,10 @@
 # 版权声明
 
-**On Time 7（Mac 版）** 版权所有 © 2026 taoskx，保留所有权利。
+**On Time 7（Mac 版）** 版权所有 © 2026 taoskx，Tao Li，保留所有权利。
 
 ## 一、未经允许不得复制
 
-未经版权所有者书面许可，任何个人或组织不得复制、修改、传播本软件的全部或部分源代码，也不得以任何形式（包括但不限于转载、镜像、打包分发、上传至公开仓库）向第三方提供。
+未经版权所有者 Tao Li 书面许可，任何个人或组织不得复制、修改、传播本软件的全部或部分源代码，也不得以任何形式（包括但不限于转载、镜像、打包分发、上传至公开仓库）向第三方提供。
 
 ## 二、不得进行商业用途
 
@@ -12,10 +12,10 @@
 
 ## 三、允许的用途
 
-本软件仅供个人学习、研究与非商业用途使用。
+本软件仅供个人学习、研究用途使用。
 
 ---
 
 违反上述声明者，版权所有者保留依法追究法律责任的权利。
 
-*Copyright © 2026 taoskx. All rights reserved. No copying of the source code and no commercial use without prior written permission.*
+*Copyright © 2026 taoskx TAO LI . All rights reserved. No copying of the source code and no commercial use without prior written permission.*
